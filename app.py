@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 APP_ID = 2410222
 
-RESUME_HTML = """
+RESUME_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,124 +13,138 @@ RESUME_HTML = """
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vedant Poman - Resume</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 30px;
+            color: #333;
         }
-        .card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 50px;
-            max-width: 700px;
-            width: 100%;
-            color: white;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .header { text-align: center; margin-bottom: 40px; }
-        .avatar {
-            width: 90px; height: 90px;
-            background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 36px; font-weight: 700;
-            margin: 0 auto 20px;
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 4px;
+            color: #111;
         }
-        h1 { font-size: 2rem; font-weight: 700; }
         .app-id {
-            display: inline-block;
-            background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-            border-radius: 20px;
-            padding: 4px 16px;
-            font-size: 0.85rem;
-            margin-top: 8px;
-            font-weight: 600;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
         }
-        .subtitle { color: #aaa; margin-top: 8px; font-size: 0.95rem; }
-        .divider {
+        .contact {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        hr {
             border: none;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin: 30px 0;
+            border-top: 2px solid #eee;
+            margin: 20px 0;
         }
-        .section-title {
-            font-size: 0.75rem;
+        h2 {
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #6c63ff;
-            font-weight: 600;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            color: #444;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+            margin-bottom: 14px;
         }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-        .info-item { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 14px 18px; }
-        .info-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-        .info-value { font-size: 0.95rem; color: white; font-weight: 500; margin-top: 4px; }
+        .section { margin-bottom: 28px; }
+        .item { margin-bottom: 12px; }
+        .item-title { font-weight: bold; font-size: 1rem; }
+        .item-sub { font-size: 0.9rem; color: #666; }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+        .skills-list li {
+            background: #f0f0f0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #333;
+        }
         .download-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: linear-gradient(135deg, #6c63ff, #3ecfcf);
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 28px;
+            background: #333;
             color: white;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 30px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+            border-radius: 6px;
+            font-size: 0.95rem;
         }
-        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108, 99, 255, 0.6); }
-        .back-btn {
-            display: block;
-            text-align: center;
-            color: #aaa;
-            text-decoration: none;
-            margin-top: 16px;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        .back-btn:hover { color: white; }
+        .download-btn:hover { background: #555; }
+        .back { display: inline-block; margin-bottom: 20px; color: #555; text-decoration: none; font-size: 0.9rem; }
+        .back:hover { color: #000; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header">
-            <div class="avatar">VP</div>
-            <h1>Vedant Poman</h1>
-            <span class="app-id">App ID: 2410222</span>
-            <p class="subtitle">Developer | DevOps Enthusiast</p>
+    <div class="container">
+        <a href="/" class="back">← Back to Home</a>
+
+        <h1>Vedant Poman</h1>
+        <div class="app-id">App ID: 2410222</div>
+        <div class="contact">
+            GitHub: github.com/Vedantpoman12 &nbsp;|&nbsp;
+            Email: vedant.poman@gmail.com
         </div>
-        <hr class="divider">
-        <p class="section-title">Details</p>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="info-label">GitHub</div>
-                <div class="info-value">Vedantpoman12</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Pipeline</div>
-                <div class="info-value">Jenkins + GitHub</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">App ID</div>
-                <div class="info-value">2410222</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Status</div>
-                <div class="info-value">🟢 Active</div>
+
+        <hr>
+
+        <div class="section">
+            <h2>Education</h2>
+            <div class="item">
+                <div class="item-title">Bachelor of Engineering – Computer Engineering</div>
+                <div class="item-sub">2022 – 2026</div>
             </div>
         </div>
-        <hr class="divider">
-        <a href="/resume/download" class="download-btn">⬇ Download Full Resume (PDF)</a>
-        <a href="/" class="back-btn">← Back to Home</a>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li>Python</li>
+                <li>Flask</li>
+                <li>Jenkins</li>
+                <li>GitHub</li>
+                <li>CI/CD</li>
+                <li>HTML/CSS</li>
+                <li>Git</li>
+                <li>Linux</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Projects</h2>
+            <div class="item">
+                <div class="item-title">Skill Gap Bridge</div>
+                <div class="item-sub">AI-based learning platform to identify and bridge skill gaps for students.</div>
+            </div>
+            <div class="item">
+                <div class="item-title">CI/CD Pipeline – Flask + Jenkins</div>
+                <div class="item-sub">Automated deployment pipeline using GitHub Webhooks and Jenkins.</div>
+            </div>
+            <div class="item">
+                <div class="item-title">Agro-AI</div>
+                <div class="item-sub">AI-powered agriculture assistant with voice command support.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Download Resume</h2>
+            <a href="/resume/download" class="download-btn">⬇ Download PDF</a>
+        </div>
     </div>
 </body>
 </html>
@@ -138,31 +152,27 @@ RESUME_HTML = """
 
 @app.route("/")
 def index():
-    return f"""
+    return """
     <html>
-    <head>
-        <title>Vedant Poman | App {APP_ID}</title>
-        <style>
-            body {{ font-family: Inter, sans-serif; background: #0f0c29; color: white;
-                   display: flex; align-items: center; justify-content: center;
-                   min-height: 100vh; text-align: center; }}
-            h1 {{ font-size: 2.5rem; }}
-            p {{ color: #aaa; margin: 10px 0; }}
-            a {{ display: inline-block; margin-top: 20px; padding: 14px 32px;
-                 background: linear-gradient(135deg, #6c63ff, #3ecfcf);
-                 color: white; text-decoration: none; border-radius: 30px;
-                 font-weight: 600; transition: transform 0.2s; }}
-            a:hover {{ transform: translateY(-2px); }}
-            .badge {{ background: rgba(108,99,255,0.2); border: 1px solid #6c63ff;
-                      padding: 4px 14px; border-radius: 20px; font-size: 0.85rem;
-                      display: inline-block; margin-top: 8px; }}
-        </style>
+    <head><title>Vedant Poman</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4;
+               display: flex; align-items: center; justify-content: center;
+               min-height: 100vh; margin: 0; }
+        .box { background: white; padding: 40px 50px; border-radius: 8px;
+               box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+        h1 { margin-bottom: 6px; }
+        p { color: #666; margin: 6px 0; }
+        a { display: inline-block; margin-top: 20px; padding: 12px 28px;
+            background: #333; color: white; text-decoration: none; border-radius: 6px; }
+        a:hover { background: #555; }
+    </style>
     </head>
     <body>
-        <div>
+        <div class="box">
             <h1>Vedant Poman</h1>
-            <span class="badge">App ID: {APP_ID}</span>
-            <p>CI/CD Pipeline with Jenkins & GitHub Webhook</p>
+            <p>App ID: 2410222APP</p>
+            <p>CI/CD Pipeline – Flask + Jenkins + GitHub Webhook</p>
             <a href="/resume">View Resume</a>
         </div>
     </body>
@@ -171,7 +181,7 @@ def index():
 
 @app.route("/resume")
 def resume():
-    return render_template_string(RESUME_HTML)
+    return render_template_string(RESUME_PAGE)
 
 @app.route("/resume/download")
 def download_resume():
@@ -180,11 +190,7 @@ def download_resume():
 
 @app.route("/health")
 def health():
-    return jsonify({
-        "status": "healthy",
-        "app_id": APP_ID,
-        "version": "1.0.0"
-    }), 200
+    return jsonify({"status": "healthy", "app_id": APP_ID, "version": "1.0.0"}), 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
